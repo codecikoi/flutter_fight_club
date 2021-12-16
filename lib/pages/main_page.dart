@@ -48,19 +48,20 @@ class _MainPageContent extends StatelessWidget {
                   if (!snapshot.hasData || snapshot.data == null) {
                     return const SizedBox();
                   }
-                  final FightResult fightResult =
+                  FightResult fightResult = FightResult.draw;
+                  if (snapshot.data == "Won") fightResult = FightResult.won;
+                  if (snapshot.data == "Lost") fightResult = FightResult.lost;
                       FightResult.getByName(snapshot.data!);
                   return Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       const Text(
-                        'Last fight result',
+                        "Last fight result",
                         style: TextStyle(
                           fontSize: 14,
                           color: FightClubColors.darkGreyText,
                         ),
                       ),
-                      const SizedBox(height: 12),
                       FightResultWidget(fightResult: fightResult),
                     ],
                   );
